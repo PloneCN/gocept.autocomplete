@@ -52,7 +52,7 @@ class SimpleTest(zope.app.testing.functional.FunctionalTestCase):
         house.color = 'red'
         form = HouseForm(house, request)
         form.update()
-        self.assertEqual(u"Fiery Red", form.widgets['color'].value)
+        self.assertEqual([u"Fiery Red"], form.widgets['color'].displayValue)
 
 
 def test_suite():
