@@ -23,7 +23,7 @@ setup(
     namespace_packages=['gocept'],
     install_requires=[
         'setuptools',
-        'ore.yui'
+        'ore.yui',
         'z3c.form',
         'zope.component',
         'zope.interface',
@@ -31,6 +31,7 @@ setup(
         ],
     extras_require=dict(
         test=[
+            'zc.sourcefactory',
             'zope.app.testing',
             'zope.testing',
             'zope.testbrowser>=3.4.3',
