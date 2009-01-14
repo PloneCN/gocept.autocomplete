@@ -2,5 +2,5 @@
     xmlns="http://namespaces.zope.org/zope"
     >
 
-    <include package="ore.yui" />
+    <!-- <include package="ore.yui" /> -->
 </configure>

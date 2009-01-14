@@ -6,8 +6,9 @@ import unittest
 import zope.app.testing.functional
 import zope.testing.doctest
 
+import zc.sourcefactory.basic
 import z3c.form
-import z3c.form.fields
+import z3c.form.field
 import z3c.form.testing
 import zope.interface
 import zope.schema
@@ -30,14 +31,14 @@ class ColorSource(zc.sourcefactory.basic.BasicSourceFactory):
 
 
 class IHouse(zope.interface.Interface):
-    color = zope.schema.Choice(title=u"Color", source=ColorSource)
+    color = zope.schema.Choice(title=u"Color", source=ColorSource())
 
 
 class House(object):
     zope.interface.implements(IHouse)
 
 
-class HouseForm(z3c.form.EditForm):
+class HouseForm(z3c.form.form.EditForm):
     fields = z3c.form.field.Fields(IHouse)
 
 
@@ -50,7 +51,8 @@ class SimpleTest(zope.app.testing.functional.FunctionalTestCase):
         house = House()
         house.color = 'red'
         form = HouseForm(house, request)
-        import pdb; pdb.set_trace();
+        form.update()
+        self.assertEqual(u"Fiery Red", form.widgets['color'].value)
 
 
 def test_suite():
@@ -64,5 +66,5 @@ def test_suite():
 
     suite = unittest.TestSuite()
     suite.addTest(doctests)
-    suite.addTest(SimpleTest)
+    suite.addTest(unittest.makeSuite(SimpleTest))
     return suite
