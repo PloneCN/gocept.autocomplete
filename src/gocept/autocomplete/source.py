@@ -12,5 +12,5 @@ class BasicAutocompleteSource(object):
         return True
 
     def search(self, prefix):
-        return [item for item in self if item.startsWith(prefix)]
+        return [item for item in self if item.find(prefix) == 0]
 
