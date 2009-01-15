@@ -9,6 +9,7 @@ import z3c.form
 import z3c.form.field
 import z3c.form.interfaces
 import z3c.form.testing
+import zope.app.testing.functional
 import zope.interface
 import zope.schema
 

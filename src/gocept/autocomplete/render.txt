@@ -8,36 +8,35 @@ Superclass
 The AutocompleteWidget is an enhanced TextWidget, so the tests for the
 TextWidget still need to work:
 
+>>> import gocept.autocomplete.interfaces
 >>> from gocept.autocomplete.widget import AutocompleteWidget
 
 The widget can render a input field for a text line:
 
 >>> from zope.interface.verify import verifyClass
->>> from zope.app.form.interfaces import IInputWidget
->>> from z3c.form import interfaces
->>> from z3c.form.browser import text
+>>> import z3c.form.interfaces
 
 It is a widget:
 
->>> verifyClass(interfaces.IWidget, AutocompleteWidget)
+>>> verifyClass(z3c.form.interfaces.IWidget, AutocompleteWidget)
 True
 
 The widget can render a input field only by adapting a request:
 
->>> from z3c.form.testing import TestRequest
->>> request = TestRequest()
+>>> import z3c.form.testing
+>>> request = z3c.form.testing.TestRequest()
 >>> widget = AutocompleteWidget(request)
 
 Such a field provides IWidget:
 
->>> interfaces.IWidget.providedBy(widget)
+>>> z3c.form.interfaces.IWidget.providedBy(widget)
 True
 
-We also need to register the template for at least the widget and request:
+We also need to register the template for both the TextWidget and the
+AutocompleteWidget:
 
 >>> import os.path
 >>> import zope.interface
->>> from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 >>> from zope.pagetemplate.interfaces import IPageTemplate
 >>> import z3c.form.browser
 >>> import z3c.form.widget
@@ -45,7 +44,8 @@ We also need to register the template for at least the widget and request:
 ...     'text_input.pt')
 >>> factory = z3c.form.widget.WidgetTemplateFactory(template)
 >>> zope.component.provideAdapter(factory,
-...     (zope.interface.Interface, IDefaultBrowserLayer, None, None, None),
+...     (zope.interface.Interface, z3c.form.interfaces.IFormLayer, None, None,
+...     z3c.form.interfaces.ITextWidget),
 ...     IPageTemplate, name='input')
 
 If we render the widget we get the HTML:
@@ -70,12 +70,10 @@ Display mode:
 ...     'text_display.pt')
 >>> factory = z3c.form.widget.WidgetTemplateFactory(template)
 >>> zope.component.provideAdapter(factory,
-...     (zope.interface.Interface, IDefaultBrowserLayer, None, None, None),
-...     IPageTemplate, name='input')
->>> zope.component.provideAdapter(factory,
-...     (zope.interface.Interface, IDefaultBrowserLayer, None, None, None),
+...     (zope.interface.Interface, z3c.form.interfaces.IFormLayer, None, None,
+...     z3c.form.interfaces.ITextWidget),
 ...     IPageTemplate, name='display')
 
->>> widget.mode = interfaces.DISPLAY_MODE
+>>> widget.mode = z3c.form.interfaces.DISPLAY_MODE
 >>> print widget.render()
 <span id="id" class="text-widget" style="color: blue">value</span>

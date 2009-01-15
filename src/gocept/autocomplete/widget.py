@@ -15,10 +15,15 @@ class AutocompleteWidget(z3c.form.browser.text.TextWidget):
         gocept.autocomplete.interfaces.IAutocompleteWidget)
 
     def input_field(self):
-        template = zope.component.getMultiAdapter(
-            (self.context, self.request, self.form, self.field, ITextWidget),
+        class Dummy(object):
+            pass
+        parent = Dummy()
+        zope.interface.alsoProvides(parent, z3c.form.interfaces.ITextWidget)
+        super_template = zope.component.getMultiAdapter(
+            (self.context, self.request, self.form, self.field,
+             parent),
             zope.pagetemplate.interfaces.IPageTemplate, name=self.mode)
-        return template(self)
+        return super_template(self)
 
 
 @zope.component.adapter(zope.schema.interfaces.IChoice,
