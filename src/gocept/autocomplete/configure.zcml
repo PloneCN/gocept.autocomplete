@@ -18,4 +18,10 @@
       template="autocomplete_input.pt"
       />
 
+  <adapter
+    for="* zope.publisher.interfaces.http.IHTTPRequest"
+    provides="zope.traversing.interfaces.ITraversable"
+    factory=".traversal.WidgetTraversable"
+    name="widget"
+    />
 </configure>
