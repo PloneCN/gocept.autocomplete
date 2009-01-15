@@ -6,11 +6,15 @@ import unittest
 import zope.app.testing.functional
 import zope.testing.doctest
 
+import gocept.autocomplete.widget
 import zc.sourcefactory.basic
 import z3c.form
 import z3c.form.field
+import z3c.form.interfaces
 import z3c.form.testing
+import zope.browser.interfaces
 import zope.interface
+import zope.publisher.interfaces.browser
 import zope.schema
 
 ftesting_zcml = os.path.join(os.path.dirname(__file__), 'ftesting.zcml')
@@ -19,15 +23,16 @@ functional_layer = zope.app.testing.functional.ZCMLLayer(
     allow_teardown=True)
 
 
-class ColorSource(zc.sourcefactory.basic.BasicSourceFactory):
-    _data = dict(red=u"Fiery Red",
-                 blue=u"Cool Blue")
+class ColorSource(object):
+    zope.interface.implements(gocept.autocomplete.interfaces.ISearchableSource)
 
-    def getValues(self):
-        return self._data.keys()
+    _data = [u"red", u"blue"]
 
-    def getTitle(self, value):
-        return self._data[value]
+    def __contains__(self, value):
+        return True
+
+    def search(self, prefix):
+        return None
 
 
 class IHouse(zope.interface.Interface):
@@ -45,23 +50,31 @@ class HouseForm(z3c.form.form.EditForm):
 class SimpleTest(zope.app.testing.functional.FunctionalTestCase):
     layer = functional_layer
 
-    def test_foo(self):
+    def test_sources_value_are_not_converted(self):
         z3c.form.testing.setupFormDefaults()
         request = z3c.form.testing.TestRequest()
         house = House()
-        house.color = 'red'
+        house.color = u"red"
         form = HouseForm(house, request)
+        zope.component.provideAdapter(
+            gocept.autocomplete.widget.AutocompleteFieldWidget,
+            (zope.schema.Choice, z3c.form.testing.TestRequest),
+            z3c.form.interfaces.IFieldWidget)
         form.update()
-        self.assertEqual([u"Fiery Red"], form.widgets['color'].displayValue)
+        self.assertEqual(u"red", form.widgets['color'].value)
+
+        request.form[form.widgets['color'].name] = u"foo"
+        form.handleApply(form, None)
+        self.assertEqual(u"foo", house.color)
 
 
 def test_suite():
-    flags = (zope.testing.doctest.ELLIPSIS
-             | zope.testing.doctest.REPORT_NDIFF
-             | zope.testing.doctest.INTERPRET_FOOTNOTES
-             | zope.testing.doctest.NORMALIZE_WHITESPACE)
+    optionflags = (zope.testing.doctest.REPORT_NDIFF
+                   | zope.testing.doctest.NORMALIZE_WHITESPACE
+                   | zope.testing.doctest.ELLIPSIS)
     doctests = zope.testing.doctest.DocFileSuite('README.txt',
-                                                 optionflags=flags)
+                                                 'render.txt',
+                                                 optionflags=optionflags)
     doctests.layer = functional_layer
 
     suite = unittest.TestSuite()

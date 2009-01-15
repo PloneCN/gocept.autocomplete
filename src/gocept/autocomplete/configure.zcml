@@ -1,6 +1,9 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    >
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  >
 
-    <!-- <include package="ore.yui" /> -->
+  <adapter factory=".term.IdentityTerms" />
+  <adapter factory=".term.SourceDataConverter" />
+
 </configure>
