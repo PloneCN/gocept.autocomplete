@@ -8,6 +8,8 @@ Superclass
 The AutocompleteWidget is an enhanced TextWidget, so the tests for the
 TextWidget still need to work:
 
+>>> from gocept.autocomplete.widget import AutocompleteWidget
+
 The widget can render a input field for a text line:
 
 >>> from zope.interface.verify import verifyClass
@@ -15,16 +17,16 @@ The widget can render a input field for a text line:
 >>> from z3c.form import interfaces
 >>> from z3c.form.browser import text
 
-The TextWidget is a widget:
+It is a widget:
 
->>> verifyClass(interfaces.IWidget, text.TextWidget)
+>>> verifyClass(interfaces.IWidget, AutocompleteWidget)
 True
 
 The widget can render a input field only by adapting a request:
 
 >>> from z3c.form.testing import TestRequest
 >>> request = TestRequest()
->>> widget = text.TextWidget(request)
+>>> widget = AutocompleteWidget(request)
 
 Such a field provides IWidget:
 
@@ -51,16 +53,6 @@ If we render the widget we get the HTML:
 >>> print widget.render()
 <input class="text-widget" value="" type="text" />
 
-XXX Display mode:
-
->>> zope.component.provideAdapter(factory,
-...     (zope.interface.Interface, IDefaultBrowserLayer, None, None, None),
-...     IPageTemplate, name='display')
-
->>> #widget.mode = interfaces.DISPLAY_MODE
->>> #print widget.render()
-<span id="foo" class="text-widget required textline-field">Some Text line.</span>
-
 Adding some more attributes to the widget will make it display more:
 
 >>> widget.id = 'id'
@@ -71,3 +63,19 @@ Adding some more attributes to the widget will make it display more:
 >>> print widget.render()
 <input id="id" name="name" class="text-widget"
        style="color: blue" value="value" type="text" />
+
+Display mode:
+
+>>> template = os.path.join(os.path.dirname(z3c.form.browser.__file__),
+...     'text_display.pt')
+>>> factory = z3c.form.widget.WidgetTemplateFactory(template)
+>>> zope.component.provideAdapter(factory,
+...     (zope.interface.Interface, IDefaultBrowserLayer, None, None, None),
+...     IPageTemplate, name='input')
+>>> zope.component.provideAdapter(factory,
+...     (zope.interface.Interface, IDefaultBrowserLayer, None, None, None),
+...     IPageTemplate, name='display')
+
+>>> widget.mode = interfaces.DISPLAY_MODE
+>>> print widget.render()
+<span id="id" class="text-widget" style="color: blue">value</span>

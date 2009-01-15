@@ -6,7 +6,7 @@ import z3c.form.browser.text
 import z3c.form.converter
 import z3c.form.interfaces
 import z3c.form.widget
-import zope.app.pagetemplate.viewpagetemplatefile
+import zope.pagetemplate.interfaces
 import zope.publisher.browser
 
 
@@ -14,14 +14,11 @@ class AutocompleteWidget(z3c.form.browser.text.TextWidget):
     zope.interface.implements(
         gocept.autocomplete.interfaces.IAutocompleteWidget)
 
-    template = zope.app.pagetemplate.viewpagetemplatefile.ViewPageTemplateFile(
-        'autocomplete_input.pt')
-
     def input_field(self):
-        return super(AutocompleteWidget, self).render()
-
-    def render(self):
-        return self.template(self)
+        template = zope.component.getMultiAdapter(
+            (self.context, self.request, self.form, self.field, ITextWidget),
+            zope.pagetemplate.interfaces.IPageTemplate, name=self.mode)
+        return template(self)
 
 
 @zope.component.adapter(zope.schema.interfaces.IChoice,
@@ -33,4 +30,4 @@ def AutocompleteFieldWidget(field, request):
 
 class SearchView(zope.publisher.browser.BrowserView):
     def __call__(self):
-        return None
+        return "\n".join(self.widget.source.search(request.get("q")))
