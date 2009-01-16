@@ -3,23 +3,16 @@
 
 import gocept.autocomplete.source
 import gocept.autocomplete.testing
+import gocept.autocomplete.tests.color
 import unittest
 import zope.interface
-
-
-class ColorSource(gocept.autocomplete.source.BasicAutocompleteSource):
-    _data = [u"red", u"blue", u"ruby"]
-
-    def __iter__(self):
-        for item in self._data:
-            yield item
 
 
 class SourceTest(zope.app.testing.functional.FunctionalTestCase):
     layer = gocept.autocomplete.testing.functional_layer
 
     def test_search(self):
-        source = ColorSource()
+        source = gocept.autocomplete.tests.color.ColorSource()
         self.assertEquals([], source.search("f"))
         self.assertEquals([u"red", u"ruby"], source.search("r"))
         self.assertEquals([u"red"], source.search("re"))

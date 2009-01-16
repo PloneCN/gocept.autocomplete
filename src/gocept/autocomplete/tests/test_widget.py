@@ -4,10 +4,9 @@
 from zope.traversing.api import traverse
 import gocept.autocomplete.source
 import gocept.autocomplete.testing
+import gocept.autocomplete.tests.color
 import gocept.autocomplete.widget
 import unittest
-import z3c.form
-import z3c.form.field
 import z3c.form.interfaces
 import z3c.form.testing
 import zope.app.testing.functional
@@ -16,26 +15,6 @@ import zope.publisher.browser
 import zope.schema
 import zope.traversing.adapters
 import zope.traversing.interfaces
-
-
-class ColorSource(gocept.autocomplete.source.BasicAutocompleteSource):
-    _data = [u"red", u"blue"]
-
-    def __iter__(self):
-        for item in self._data:
-            yield item
-
-
-class IHouse(zope.interface.Interface):
-    color = zope.schema.Choice(title=u"Color", source=ColorSource())
-
-
-class House(object):
-    zope.interface.implements(IHouse)
-
-
-class HouseForm(z3c.form.form.EditForm):
-    fields = z3c.form.field.Fields(IHouse)
 
 
 class WidgetTest(zope.app.testing.functional.FunctionalTestCase):
@@ -47,9 +26,9 @@ class WidgetTest(zope.app.testing.functional.FunctionalTestCase):
 
     def test_sources_value_are_not_converted(self):
         request = z3c.form.testing.TestRequest()
-        house = House()
+        house = gocept.autocomplete.tests.color.House()
         house.color = u"red"
-        form = HouseForm(house, request)
+        form = gocept.autocomplete.tests.color.HouseForm(house, request)
         zope.component.provideAdapter(
             gocept.autocomplete.widget.AutocompleteFieldWidget,
             (zope.schema.Choice, z3c.form.testing.TestRequest),
@@ -63,15 +42,16 @@ class WidgetTest(zope.app.testing.functional.FunctionalTestCase):
 
     def test_traversal(self):
         request = z3c.form.testing.TestRequest()
-        house = House()
+        house = gocept.autocomplete.tests.color.House()
         zope.component.provideAdapter(
             zope.traversing.adapters.RootPhysicallyLocatable,
-            (House,), zope.traversing.interfaces.IPhysicallyLocatable)
+            (gocept.autocomplete.tests.color.House,),
+            zope.traversing.interfaces.IPhysicallyLocatable)
         house.color = u"red"
-        form = HouseForm(house, request)
+        form = gocept.autocomplete.tests.color.HouseForm(house, request)
         zope.component.provideAdapter(
             lambda x,y: form,
-            (House, z3c.form.testing.TestRequest),
+            (gocept.autocomplete.tests.color.House, z3c.form.testing.TestRequest),
             zope.interface.Interface,
             name='form'
             )
