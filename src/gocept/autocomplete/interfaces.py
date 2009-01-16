@@ -9,6 +9,6 @@ class IAutocompleteWidget(z3c.form.interfaces.IWidget):
     """Autocomplete widget"""
 
 
-class ISearchableSource(zope.schema.interfaces.ISource):
+class ISearchableSource(zope.schema.interfaces.IIterableSource):
     def search(prefix):
         pass

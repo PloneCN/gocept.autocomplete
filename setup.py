@@ -33,6 +33,7 @@ setup(
         test=[
             'lxml',
             'zope.app.testing',
+            'zope.securitypolicy',
             'zope.testing',
             'zope.testbrowser>=3.4.3',
             ]),
