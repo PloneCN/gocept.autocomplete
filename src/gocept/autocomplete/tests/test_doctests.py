@@ -9,7 +9,6 @@ optionflags = (zope.testing.doctest.REPORT_NDIFF
 
 def test_suite():
     suite = zope.testing.doctest.DocFileSuite('README.txt',
-                                              'render.txt',
                                               package='gocept.autocomplete',
                                               optionflags=optionflags)
     suite.layer = gocept.autocomplete.testing.functional_layer
