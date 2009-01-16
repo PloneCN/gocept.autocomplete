@@ -4,8 +4,6 @@ Autocomplete widget
 gocept.autocomplete provides an autocomplete widget for z3c.form based on YUI
 AutoComplete.
 
-The AutocompleteWidget is an enhanced TextWidget.
-
 >>> import zope.app.testing.functional
 >>> root = zope.app.testing.functional.getRootFolder()
 >>> import gocept.autocomplete.tests.color
@@ -15,5 +13,28 @@ The AutocompleteWidget is an enhanced TextWidget.
 >>> import zope.testbrowser.testing
 >>> b = zope.testbrowser.testing.Browser()
 >>> b.handleErrors = False
+
+The AutocompleteWidget is an enhanced TextWidget. Thus, in display mode, it
+behaves just like a TextWidget:
+
 >>> b.open('http://localhost/house')
 >>> print b.contents
+<!DOCTYPE...
+...<span id="form-widgets-color" class="text-widget autocomplete required choice-field"></span>...
+
+But in edit mode, it generates additional javascript code:
+
+>>> b.addHeader('Authorization', 'Basic mgr:mgrpw')
+>>> b.open('http://localhost/house')
+>>> print b.contents
+<!DOCTYPE...
+...<input id="form-widgets-color"...
+...<div id="form-widgets-color-container"...
+...DS_XHR("http://localhost/house/@@index.html/++widget++color/@@autocomplete-search");...
+...new YAHOO.widget.AutoComplete( "form-widgets-color", "form-widgets-color-container"...
+
+>>> b.open('http://localhost/house/@@index.html/++widget++color/@@autocomplete-search')
+>>> print b.contents
+red
+blue
+ruby

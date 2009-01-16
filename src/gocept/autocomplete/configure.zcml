@@ -6,22 +6,31 @@
 
   <include package="zope.app.zcmlfiles"/>
 
-  <adapter factory=".term.IdentityTerms" />
-  <adapter factory=".term.SourceDataConverter" />
+  <adapter factory=".term.IdentityTerms"/>
+  <adapter factory=".term.SourceDataConverter"/>
 
   <include package="z3c.form" file="meta.zcml"/>
 
   <z3c:widgetTemplate
-      mode="input"
-      widget=".interfaces.IAutocompleteWidget"
-      layer="z3c.form.interfaces.IFormLayer"
-      template="autocomplete_input.pt"
-      />
+    mode="input"
+    widget=".interfaces.IAutocompleteWidget"
+    layer="z3c.form.interfaces.IFormLayer"
+    template="autocomplete_input.pt"
+    />
 
   <adapter
     for="* zope.publisher.interfaces.http.IHTTPRequest"
     provides="zope.traversing.interfaces.ITraversable"
     factory=".traversal.WidgetTraversable"
     name="widget"
+    />
+
+  <include package="ore.yui" file="reslib.zcml"/>
+
+  <browser:page
+    name="autocomplete-search"
+    for=".interfaces.IAutocompleteWidget"
+    permission="zope.Public"
+    class=".widget.SearchView"
     />
 </configure>

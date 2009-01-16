@@ -29,10 +29,6 @@ class WidgetTest(zope.app.testing.functional.FunctionalTestCase):
         house = gocept.autocomplete.tests.color.House()
         house.color = u"red"
         form = gocept.autocomplete.tests.color.HouseForm(house, request)
-        zope.component.provideAdapter(
-            gocept.autocomplete.widget.AutocompleteFieldWidget,
-            (zope.schema.Choice, z3c.form.testing.TestRequest),
-            z3c.form.interfaces.IFieldWidget)
         form.update()
         self.assertEqual(u"red", form.widgets['color'].value)
 
@@ -55,12 +51,8 @@ class WidgetTest(zope.app.testing.functional.FunctionalTestCase):
             zope.interface.Interface,
             name='form'
             )
-        zope.component.provideAdapter(
-            gocept.autocomplete.widget.AutocompleteFieldWidget,
-            (zope.schema.Choice, z3c.form.testing.TestRequest),
-            z3c.form.interfaces.IFieldWidget)
         # we intentionally don't call form.update() ourselves,
-        # since the traverser must not assume that it has been called
+        # since the traverser shouldn't assume that it has been called
         actual = traverse(house, '/@@form/++widget++color', request=request)
         self.assertEqual(form.widgets['color'], actual)
 
