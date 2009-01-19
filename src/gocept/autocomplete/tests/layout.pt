@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!--
-adapted from z3c.form.tests.simple_edit.pt to have a <head> and the yui
+adapted from z3c.form.tests.simple_edit.pt to have a head and the yui
 body-class
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -18,7 +18,7 @@ body-class
         <tal:block replace="structure error/render" />
       </li>
     </ul>
-    <form action=".">
+    <form action="." method="post">
       <div class="row" tal:repeat="widget view/widgets/values">
         <b tal:condition="widget/error"
            tal:content="structure widget/error/render"
