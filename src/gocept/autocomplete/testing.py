@@ -1,6 +1,7 @@
 # Copyright (c) 2009 gocept gmbh & co. kg
 # See also LICENSE.txt
 
+import gocept.autocomplete.tests
 import os
 import z3c.form.form
 import z3c.form.tests
@@ -12,8 +13,8 @@ class FunctionalLayer(zope.app.testing.functional.ZCMLLayer):
     def setUp(self):
         zope.app.testing.functional.ZCMLLayer.setUp(self)
         zope.component.provideAdapter(z3c.form.form.FormTemplateFactory(
-            os.path.join(os.path.dirname(z3c.form.tests.__file__),
-                         'simple_edit.pt')))
+            os.path.join(os.path.dirname(gocept.autocomplete.tests.__file__),
+                         'layout.pt')))
 
 
 ftesting_zcml = os.path.join(os.path.dirname(__file__), 'ftesting.zcml')
