@@ -11,6 +11,7 @@ import zc.resourcelibrary
 import zope.interface
 import zope.pagetemplate.interfaces
 import zope.publisher.browser
+import zope.security.proxy
 
 
 class AutocompleteWidget(z3c.form.browser.text.TextWidget):
@@ -20,10 +21,15 @@ class AutocompleteWidget(z3c.form.browser.text.TextWidget):
     _javascript = """
 YAHOO.namespace('gocept.autocomplete');
 
-YAHOO.gocept.autocomplete.init_${id} = new function() {
-    this.datasource = new YAHOO.widget.DS_XHR("${url}");
+YAHOO.gocept.autocomplete.init_${id_} = new function() {
+    this.datasource = new YAHOO.widget.DS_XHR("${url}", ["\\n"]);
+    this.datasource.responseType = YAHOO.widget.DS_XHR.TYPE_FLAT;
+    this.datasource.scriptQueryParam = "q";
     this.autocomp = new YAHOO.widget.AutoComplete(
         "${id}", "${id}-container", this.datasource);
+    this.autocomp.prehighlightClassName = "yui-ac-prehighlight";
+    this.autocomp.typeAhead = true;
+    this.autocomp.useShadow = true;
     this.autocomp.doBeforeExpandContainer = function(textbox, container, query, results) {
         var pos = YAHOO.util.Dom.getXY(textbox);
         pos[1] += YAHOO.util.Dom.get(textbox).offsetHeight + 2;
@@ -31,6 +37,8 @@ YAHOO.gocept.autocomplete.init_${id} = new function() {
         return true;
     };
 }
+
+YAHOO.util.Event.onDOMReady(YAHOO.gocept.autocomplete.init_${id_});
 """
 
     def __init__(self, *args, **kw):
@@ -61,7 +69,7 @@ YAHOO.gocept.autocomplete.init_${id} = new function() {
             context_url, self.form.__name__, self.name.split('.')[-1])
 
         return string.Template(self._javascript).substitute(dict(
-            id=self.id, url=search_url))
+            id=self.id, id_=self.id.replace('-', '_'), url=search_url))
 
 
 @zope.component.adapter(zope.schema.interfaces.IChoice,
@@ -73,4 +81,10 @@ def AutocompleteFieldWidget(field, request):
 
 class SearchView(zope.publisher.browser.BrowserView):
     def __call__(self):
-        return "\n".join(self.context.field.source.search(request.get("q")))
+        # XXX security!!
+        context = zope.security.proxy.removeSecurityProxy(self.context)
+        query = self.request.get("q")
+        if query:
+            return u"\n".join(context.field.source.search(query))
+        else:
+            return u""

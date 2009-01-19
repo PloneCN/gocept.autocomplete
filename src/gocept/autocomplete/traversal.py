@@ -3,6 +3,7 @@
 
 import zope.component
 import zope.interface
+import zope.security.proxy
 import zope.traversing.interfaces
 
 
@@ -10,7 +11,8 @@ class WidgetTraversable(object):
     zope.interface.implements(zope.traversing.interfaces.ITraversable)
 
     def __init__(self, context, request):
-        self.context = context
+        # XXX security!!
+        self.context = zope.security.proxy.removeSecurityProxy(context)
         self.request = request
 
     def traverse(self, name, remaining):
