@@ -42,3 +42,12 @@ The autocompletion is populated via a view registered on the widget:
 >>> print b.contents
 red
 ruby
+
+But we can still enter any value we want and have it saved:
+
+>>> b.open('http://localhost/house')
+>>> b.getControl('Color').value = 'foo'
+>>> b.getControl(name='form.buttons.apply').click()
+>>> print b.contents
+<?xml...
+...foo...

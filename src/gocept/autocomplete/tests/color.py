@@ -30,9 +30,14 @@ class IHouse(zope.interface.Interface):
 class House(object):
     zope.interface.implements(IHouse)
 
+    color = None
+
 
 class HouseForm(z3c.form.form.EditForm):
     fields = z3c.form.field.Fields(IHouse)
+
+    def __call__(self, *args, **kw):
+        return super(HouseForm, self).__call__(*args, **kw)
 
 
 class IColorSkin(z3c.form.interfaces.IFormLayer,
@@ -45,8 +50,8 @@ def init_demo(event):
     db, connection, root, root_folder = zope.app.appsetup.bootstrap.getInformationFromEvent(event)
 
     zope.component.provideAdapter(z3c.form.form.FormTemplateFactory(
-        os.path.join(os.path.dirname(z3c.form.tests.__file__),
-                     'simple_edit.pt')))
+        os.path.join(os.path.dirname(gocept.autocomplete.tests.__file__),
+                     'layout.pt')))
 
 
     root_folder['demo'] = House()
