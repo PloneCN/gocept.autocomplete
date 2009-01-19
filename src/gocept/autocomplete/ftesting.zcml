@@ -5,6 +5,7 @@
   >
 
   <include package="gocept.autocomplete" />
+  <include package="gocept.autocomplete.tests" file="selenium.zcml" />
 
   <class class="gocept.autocomplete.tests.color.House">
     <factory />
