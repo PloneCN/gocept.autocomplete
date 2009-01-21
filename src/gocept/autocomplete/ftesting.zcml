@@ -5,40 +5,12 @@
   >
 
   <include package="gocept.autocomplete" />
+  <include package="gocept.autocomplete.tests" />
+  <!-- selenium tests -->
   <include package="gocept.autocomplete.tests" file="selenium.zcml" />
 
-  <class class="gocept.autocomplete.tests.color.House">
-    <factory />
-    <require
-      permission="zope.Public"
-      interface="gocept.autocomplete.tests.color.IHouse"
-      />
-    <require
-      permission="zope.ManageContent"
-      set_schema="gocept.autocomplete.tests.color.IHouse"
-      />
-  </class>
-
-  <browser:page
-    for="gocept.autocomplete.tests.color.IHouse"
-    name="index.html"
-    class="gocept.autocomplete.tests.color.HouseForm"
-    permission="zope.Public"
-    />
-
-  <browser:defaultView
-    for="gocept.autocomplete.tests.color.IHouse"
-    name="index.html"
-    />
-
-  <adapter
-    for="zope.schema.Choice z3c.form.interfaces.IFormLayer"
-    factory="gocept.autocomplete.widget.AutocompleteFieldWidget"
-    provides="z3c.form.interfaces.IFieldWidget"
-    />
-
+  <!-- enable z3c.form's layer for the default skin  -->
   <include package="z3c.form" />
-
   <utility
     component="gocept.autocomplete.tests.color.IColorSkin"
     provides="zope.publisher.interfaces.browser.IBrowserSkinType"
@@ -46,7 +18,7 @@
     />
   <browser:defaultSkin name="foo"/>
 
-  <!-- Typical functional testing security setup -->
+  <!-- typical functional testing security setup -->
   <include package="zope.securitypolicy" file="meta.zcml"/>
   <include package="zope.app.authentication"/>
   <securityPolicy
@@ -73,6 +45,7 @@
   <grantAll role="zope.Manager" />
   <grant role="zope.Manager" principal="zope.mgr" />
 
+  <!-- initialize demo data -->
   <subscriber
       for="zope.app.appsetup.interfaces.IDatabaseOpenedEvent"
       handler="gocept.autocomplete.tests.color.init_demo"
