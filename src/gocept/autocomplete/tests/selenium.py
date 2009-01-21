@@ -18,26 +18,20 @@ if sys.platform == 'darwin':
     webbrowser.register('Firefox', MacOSXFirefox, None, -1)
 
 
-class SeleniumTestCase(zc.selenium.pytest.Test):
-    def setUp(self):
-        super(SeleniumTestCase, self).setUp()
-        self.open_demo()
-
-    def tearDown(self):
-        super(SeleniumTestCase, self).tearDown()
-
-    def open_demo(self):
-        self.selenium.open(
-            'http://mgr:mgrpw@%s/demo' %
-            self.selenium.server)
-
-
-class AutocompleteTest(SeleniumTestCase):
-    def test_crop_mask(self):
+class AutocompleteTest(zc.selenium.pytest.Test):
+    def test_autocomplete(self):
         s = self.selenium
 
-        s.comment('Autocomplete')
+        # XXX: logging in this way on /demo directly (which does not *require*
+        # login) does not work
+        s.open('http://mgr:mgrpw@%s/manage' % self.selenium.server)
+
+        s.open('/demo')
+        s.comment('Typing a key should cause the word to be completed')
+        # XXX: this *looks* like we're entering 'rr' (when one observes the
+        # browser), but it does the right thing -- and all other combination
+        # of calls I tried didn't work at all. :-(
         s.type('id=form-widgets-color', 'r')
-        s.waitForVisible('id=form-widgets-color-container')
+        s.typeKeys('id=form-widgets-color', 'r')
+        s.waitForValue('id=form-widgets-color', 'red')
         s.verifyText('id=form-widgets-color-container', '*red*')
-        s.verifyValue('id=form-widgets-color', 'red')
