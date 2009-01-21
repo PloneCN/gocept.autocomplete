@@ -25,9 +25,14 @@ setup(
         'setuptools',
         'ore.yui',
         'z3c.form',
+        'zc.resourcelibrary',
+        'zope.browser',
         'zope.component',
         'zope.interface',
+        'zope.pagetemplate',
+        'zope.publisher',
         'zope.schema',
+        'zope.traversing',
         ],
     extras_require=dict(
         test=[
