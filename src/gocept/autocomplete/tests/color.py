@@ -1,7 +1,7 @@
 # Copyright (c) 2009 gocept gmbh & co. kg
 # See also LICENSE.txt
 
-import gocept.autocomplete.source
+import gocept.autocomplete.interfaces
 import os
 import z3c.form.field
 import z3c.form.form
@@ -15,12 +15,20 @@ import zope.schema
 import transaction
 
 
-class ColorSource(gocept.autocomplete.source.BasicAutocompleteSource):
+class ColorSource(object):
+    zope.interface.implements(gocept.autocomplete.interfaces.ISearchableSource)
+
     _data = [u"red", u"blue", u"ruby"]
 
     def __iter__(self):
         for item in self._data:
             yield item
+
+    def __contains__(self, value):
+        return True
+
+    def search(self, prefix):
+        return [item for item in self if item.lower().find(prefix.lower()) == 0]
 
 
 class IHouse(zope.interface.Interface):
