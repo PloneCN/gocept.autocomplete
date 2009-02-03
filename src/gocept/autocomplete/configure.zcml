@@ -6,7 +6,17 @@
 
   <include package="zope.app.zcmlfiles"/>
 
-  <adapter factory=".term.IdentityTerms"/>
+  <!-- z3c.form ITerms -->
+  <adapter
+    factory=".term.IdentityTerms"
+    provides="zope.browser.interfaces.ITerms"
+    />
+  <!-- zope.formlib ITerms -->
+  <adapter
+    factory=".term.IdentityTerms"
+    provides="zope.app.form.browser.interfaces.ITerms"
+    />
+
   <adapter factory=".term.SourceDataConverter"/>
 
   <include package="z3c.form" file="meta.zcml"/>
