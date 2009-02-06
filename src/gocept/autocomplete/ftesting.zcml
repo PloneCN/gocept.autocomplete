@@ -2,17 +2,19 @@
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
   i18n_domain="zope"
+  package="gocept.autocomplete"
   >
 
   <include package="gocept.autocomplete" />
   <include package="gocept.autocomplete.tests" />
+
   <!-- selenium tests -->
   <include package="gocept.autocomplete.tests" file="selenium.zcml" />
 
   <!-- enable z3c.form's layer for the default skin  -->
   <include package="z3c.form" />
   <utility
-    component="gocept.autocomplete.tests.color.IColorSkin"
+    component=".tests.color.IColorSkin"
     provides="zope.publisher.interfaces.browser.IBrowserSkinType"
     name="foo"
     />
@@ -48,6 +50,6 @@
   <!-- initialize demo data -->
   <subscriber
       for="zope.app.appsetup.interfaces.IDatabaseOpenedEvent"
-      handler="gocept.autocomplete.tests.color.init_demo"
+      handler=".tests.color.init_demo"
       />
 </configure>
