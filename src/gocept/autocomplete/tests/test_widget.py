@@ -2,7 +2,6 @@
 # See also LICENSE.txt
 
 from zope.traversing.api import traverse
-import gocept.autocomplete.source
 import gocept.autocomplete.testing
 import gocept.autocomplete.tests.color
 import gocept.autocomplete.widget
