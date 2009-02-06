@@ -6,16 +6,24 @@
 
   <include package="zope.app.zcmlfiles"/>
 
-  <!-- z3c.form ITerms -->
   <adapter
     factory=".term.IdentityTerms"
     provides="zope.browser.interfaces.ITerms"
     />
-  <!-- zope.formlib ITerms -->
+
+  <!-- zope.formlib ITerms compatiblity for ISearchableSource -->
+  <!-- use in client's configure.zcml if needed -->
+  <!--
   <adapter
-    factory=".term.IdentityTerms"
+    factory="gocept.autocomplete.term.IdentityTerms"
     provides="zope.app.form.browser.interfaces.ITerms"
     />
+
+  <class class="gocept.autocomplete.term.IdentityTerms">
+    <factory/>
+    <implements interface="zope.app.form.browser.interfaces.ITerms"/>
+  </class>
+  -->
 
   <adapter factory=".term.SourceDataConverter"/>
 
