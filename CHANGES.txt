@@ -1,7 +1,10 @@
 Changes
 =======
 
-0.2 (unreleased)
+0.3 (unreleased)
+----------------
+
+0.2 (2009-02-23)
 ----------------
 
 - register the widget for IChoice fields with an ISearchableSource.
