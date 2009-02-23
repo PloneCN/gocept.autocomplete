@@ -26,10 +26,4 @@
     for="gocept.autocomplete.tests.color.IHouse"
     name="index.html"
     />
-
-  <adapter
-    for="zope.schema.Choice z3c.form.interfaces.IFormLayer"
-    factory="gocept.autocomplete.widget.AutocompleteFieldWidget"
-    provides="z3c.form.interfaces.IFieldWidget"
-    />
 </configure>

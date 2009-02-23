@@ -11,6 +11,10 @@
     provides="zope.browser.interfaces.ITerms"
     />
 
+  <adapter
+    factory=".widget.AutocompleteFieldWidget"
+    />
+
   <!-- zope.formlib ITerms compatiblity for ISearchableSource -->
   <!-- use in client's configure.zcml if needed -->
   <!--

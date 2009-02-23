@@ -49,7 +49,6 @@ YAHOO.util.Event.onDOMReady(YAHOO.gocept.autocomplete.init_${id_});
         zc.resourcelibrary.need("yui-autocomplete")
         return super(AutocompleteWidget, self).render()
 
-
     def input_field(self):
         class Dummy(object):
             pass
@@ -73,9 +72,10 @@ YAHOO.util.Event.onDOMReady(YAHOO.gocept.autocomplete.init_${id_});
 
 
 @zope.component.adapter(zope.schema.interfaces.IChoice,
+                        gocept.autocomplete.interfaces.ISearchableSource,
                         z3c.form.interfaces.IFormLayer)
 @zope.interface.implementer(z3c.form.interfaces.IFieldWidget)
-def AutocompleteFieldWidget(field, request):
+def AutocompleteFieldWidget(field, source, request):
     return z3c.form.widget.FieldWidget(field, AutocompleteWidget(request))
 
 
