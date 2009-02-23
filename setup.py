@@ -38,8 +38,9 @@ setup(
         test=[
             'lxml',
             'zc.selenium',
-            'zope.app.testing',
             'zope.app.appsetup',
+            'zope.app.testing',
+            'zope.app.zcmlfiles',
             'zope.securitypolicy',
             'zope.testing',
             'zope.testbrowser>=3.4.3',
