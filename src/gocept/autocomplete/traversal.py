@@ -8,6 +8,12 @@ import zope.traversing.interfaces
 
 
 class WidgetTraversable(object):
+    """Traverser from a z3c.form to its widgets.
+
+    /context/@@form/++widget++fieldname is the widget belonging to the form
+    field 'fieldname'.
+    """
+
     zope.interface.implements(zope.traversing.interfaces.ITraversable)
 
     def __init__(self, context, request):

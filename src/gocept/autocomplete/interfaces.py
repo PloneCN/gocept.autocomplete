@@ -10,5 +10,10 @@ class IAutocompleteWidget(z3c.form.interfaces.IWidget):
 
 
 class ISearchableSource(zope.schema.interfaces.IIterableSource):
+    """A source suitable for autocompletion.
+    Note that its __contains__() method should always return True.
+    """
+
     def search(prefix):
-        pass
+        """Returns a list of values from this source that match the given
+        prefix."""

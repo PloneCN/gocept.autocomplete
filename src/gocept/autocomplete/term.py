@@ -1,5 +1,10 @@
 # Copyright (c) 2009 gocept gmbh & co. kg
 # See also LICENSE.txt
+"""
+Since we want to accept any value that the user entered, even if it is not
+part of the source yet, we do not use terms/tokens as usual but rather use
+the value itself for everything.
+"""
 
 import gocept.autocomplete.widget
 import z3c.form.converter

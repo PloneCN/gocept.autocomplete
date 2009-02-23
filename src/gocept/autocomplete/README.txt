@@ -1,8 +1,23 @@
 Autocomplete widget
 ===================
 
-gocept.autocomplete provides an autocomplete widget for z3c.form based on YUI
-AutoComplete.
+gocept.autocomplete provides an autocomplete widget for z3c.form.
+The widget is useful if you want to provide the user with a list of suggestions
+for a field, but still want to accept anything else that is entered, too.
+The UI-part of the widget is YUI AutoComplete <http://developer.yahoo.com/yui/autocomplete/>.
+
+To use the widget, `<include package="gocept.autocomplete">` and provide a
+source that implements `gocept.autocomplete.interfaces.ISearchableSource`.
+This means two things, one, your source must provide a search() method so it can
+be queried for values (with whatever has been entered so far as the query) and
+two, you must always return True from the __contains__() method, so that the
+user is free to enter a value that is not part of the suggestions.
+
+No further configuration is required, the widget is automatically registered for
+all `zope.schema.IChoice` fields with an `ISearchableSource`.
+
+As an example, we exercise the code from `gocept.autocomplete.tests.color` with
+the testbrowser:
 
 >>> import zope.app.testing.functional
 >>> root = zope.app.testing.functional.getRootFolder()
@@ -43,7 +58,10 @@ The autocompletion is populated via a view registered on the widget:
 red
 ruby
 
-But we can still enter any value we want and have it saved:
+But we can still enter any value we want and have it saved (there are two parts
+to make this work, one is that the source must always return True in its
+__contains__() method, and the other is that the widget uses a special
+TitledTokenizedTerm that uses the actual value for everything):
 
 >>> b.open('http://localhost/house')
 >>> b.getControl('Color').value = 'foo'
