@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.3 (unreleased)
+0.3 (2010-02-26)
 ----------------
 
 - Slightly different way to "estimate" the widget URL: use the form's context,
