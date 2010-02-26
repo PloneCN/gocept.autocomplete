@@ -26,4 +26,9 @@
     for="gocept.autocomplete.tests.color.IHouse"
     name="index.html"
     />
+
+  <interface
+    interface=".color.IColorSkin"
+    type="zope.publisher.interfaces.browser.IBrowserSkinType"/>
+
 </configure>

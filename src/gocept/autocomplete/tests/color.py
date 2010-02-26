@@ -28,7 +28,8 @@ class ColorSource(object):
         return True
 
     def search(self, prefix):
-        return [item for item in self if item.lower().find(prefix.lower()) == 0]
+        return [item for item in self
+                if item.lower().find(prefix.lower()) == 0]
 
 
 class IHouse(zope.interface.Interface):
@@ -49,20 +50,18 @@ class HouseForm(z3c.form.form.EditForm):
 
 
 class IColorSkin(z3c.form.interfaces.IFormLayer,
-                 zope.publisher.interfaces.browser.IDefaultBrowserLayer,
-                 zope.publisher.interfaces.browser.IBrowserSkinType):
+                 zope.publisher.interfaces.browser.IDefaultBrowserLayer):
     pass
 
 
 def init_demo(event):
-    db, connection, root, root_folder = zope.app.appsetup.bootstrap.getInformationFromEvent(event)
+    db, connection, root, root_folder = (
+        zope.app.appsetup.bootstrap.getInformationFromEvent(event))
 
     zope.component.provideAdapter(z3c.form.form.FormTemplateFactory(
         os.path.join(os.path.dirname(gocept.autocomplete.tests.__file__),
                      'layout.pt')))
 
-
     root_folder['demo'] = House()
     transaction.commit()
     connection.close()
-

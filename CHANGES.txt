@@ -4,6 +4,10 @@ Changes
 0.3 (unreleased)
 ----------------
 
+- Slightly different way to "estimate" the widget URL: use the form's context,
+  not the getContent() method: if the content is redirected using an adapter
+  then the view might not exist there.
+
 0.2 (2009-02-23)
 ----------------
 

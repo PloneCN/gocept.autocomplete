@@ -62,7 +62,7 @@ YAHOO.util.Event.onDOMReady(YAHOO.gocept.autocomplete.init_${id_});
 
     def javascript(self):
         context_url = str(zope.component.getMultiAdapter(
-            (self.form.getContent(), self.request), name='absolute_url'))
+            (self.form.context, self.request), name='absolute_url'))
 
         search_url = "%s/@@%s/++widget++%s/@@autocomplete-search" % (
             context_url, self.form.__name__, self.name.split('.')[-1])
