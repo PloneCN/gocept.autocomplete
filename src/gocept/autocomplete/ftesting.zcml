@@ -8,9 +8,6 @@
   <include package="gocept.autocomplete" />
   <include package="gocept.autocomplete.tests" />
 
-  <!-- selenium tests -->
-  <include package="gocept.autocomplete.tests" file="selenium.zcml" />
-
   <!-- enable z3c.form's layer for the default skin  -->
   <include package="z3c.form" />
   <utility

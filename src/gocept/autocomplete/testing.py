@@ -2,6 +2,7 @@
 # See also LICENSE.txt
 
 import gocept.autocomplete.tests
+import gocept.selenium.ztk
 import os
 import z3c.form.form
 import z3c.form.tests
@@ -21,3 +22,9 @@ ftesting_zcml = os.path.join(os.path.dirname(__file__), 'ftesting.zcml')
 functional_layer = FunctionalLayer(
     ftesting_zcml, __name__, 'FunctionalLayer',
     allow_teardown=True)
+selenium_layer = gocept.selenium.ztk.Layer(functional_layer)
+
+
+class SeleniumTestCase(gocept.selenium.ztk.TestCase):
+
+    layer = selenium_layer

@@ -37,11 +37,13 @@ setup(
     extras_require=dict(
         test=[
             'lxml',
-            'zc.selenium',
+            'gocept.selenium',
             'zope.app.appsetup',
             'zope.app.testing',
             'zope.app.zcmlfiles',
             'zope.securitypolicy',
+            'zope.server',
+            'zope.app.server',
             'zope.testing',
             'zope.testbrowser>=3.4.3',
             ]),
