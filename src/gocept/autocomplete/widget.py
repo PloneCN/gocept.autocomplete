@@ -28,8 +28,10 @@ YAHOO.gocept.autocomplete.init_${id_} = new function() {
     this.autocomp = new YAHOO.widget.AutoComplete(
         "${id}", "${id}-container", this.datasource);
     this.autocomp.prehighlightClassName = "yui-ac-prehighlight";
-    this.autocomp.typeAhead = true;
+    this.autocomp.typeAhead = ${typeAhead};
+    this.autocomp.minQueryLength = ${minQueryLength};
     this.autocomp.useShadow = true;
+    this.autocomp.delimChar = "${delimchar}";
     this.autocomp.doBeforeExpandContainer = function(textbox, container, query, results) {
         var pos = YAHOO.util.Dom.getXY(textbox);
         pos[1] += YAHOO.util.Dom.get(textbox).offsetHeight + 2;
@@ -43,6 +45,9 @@ YAHOO.util.Event.onDOMReady(YAHOO.gocept.autocomplete.init_${id_});
 
     def __init__(self, *args, **kw):
         super(AutocompleteWidget, self).__init__(*args, **kw)
+        self.delimchar = ''
+        self.typeAhead = 'true'
+        self.minQueryLength = 1
         self.addClass(u'autocomplete')
 
     def render(self):
@@ -68,7 +73,9 @@ YAHOO.util.Event.onDOMReady(YAHOO.gocept.autocomplete.init_${id_});
             context_url, self.form.__name__, self.name.split('.')[-1])
 
         return string.Template(self._javascript).substitute(dict(
-            id=self.id, id_=self.id.replace('-', '_'), url=search_url))
+            id=self.id, id_=self.id.replace('-', '_'),
+            delimchar=self.delimchar, typeAhead=self.typeAhead,
+            minQueryLength=self.minQueryLength, url=search_url))
 
 
 @zope.component.adapter(zope.schema.interfaces.IChoice,
