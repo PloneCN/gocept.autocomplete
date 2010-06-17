@@ -24,5 +24,14 @@ class WidgetTraversable(object):
     def traverse(self, name, remaining):
         form = self.context
         form.update()
-        return form.widgets[name]
+        if hasattr(form, 'groups') and form.groups:
+            widget = self.find_widget(form, name)
+        else:
+            widget = form.widgets[name]
+        return widget
 
+    def find_widget(self, form, name):
+        for group in form.groups:
+            widget = group.widgets.get(name)
+            if widget:
+                return widget

@@ -5,6 +5,7 @@ import gocept.autocomplete.interfaces
 import os
 import z3c.form.field
 import z3c.form.form
+import z3c.form.group
 import z3c.form.interfaces
 import z3c.form.tests
 import zope.app.appsetup.bootstrap
@@ -32,8 +33,16 @@ class ColorSource(object):
                 if item.lower().find(prefix.lower()) == 0]
 
 
+class NumberSource(ColorSource):
+
+    _data = [u"12A", "12", "front-6B"]
+
 class IHouse(zope.interface.Interface):
     color = zope.schema.Choice(title=u"Color", source=ColorSource())
+
+
+class IApartment(IHouse):
+    number = zope.schema.Choice(title=u"Number", source=NumberSource())
 
 
 class House(object):
@@ -42,11 +51,30 @@ class House(object):
     color = None
 
 
+class Apartment(object):
+    zope.interface.implements(IApartment)
+    color = None
+    number = None
+
+
 class HouseForm(z3c.form.form.EditForm):
     fields = z3c.form.field.Fields(IHouse)
 
     def __call__(self, *args, **kw):
         return super(HouseForm, self).__call__(*args, **kw)
+
+
+class HouseGroup(z3c.form.group.Group):
+    fields = z3c.form.field.Fields(IApartment).select('color')
+
+
+class ApartmentGroup(z3c.form.group.Group):
+    fields = z3c.form.field.Fields(IApartment).select('number')
+
+
+class ApartmentForm(z3c.form.group.GroupForm,
+                    z3c.form.form.EditForm):
+    groups = (HouseGroup, ApartmentGroup)
 
 
 class IColorSkin(z3c.form.interfaces.IFormLayer,

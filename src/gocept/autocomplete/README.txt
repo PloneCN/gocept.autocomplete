@@ -69,3 +69,26 @@ TitledTokenizedTerm that uses the actual value for everything):
 >>> print b.contents
 <?xml...
 ...foo...
+
+
+Grouped Forms
+=============
+
+A special case are group forms, who provide the field definitions in
+their groups. For this particular occasion, we've setup an
+ApartmentGroup and a form:
+
+>>> apartment = gocept.autocomplete.tests.color.Apartment()
+>>> root['apartment'] = apartment
+
+The widget traversal for grouped forms returns the correct search
+results:
+
+>>> b.open('http://localhost/apartment/@@grouped.html/++widget++color/@@autocomplete-search?q=r')
+>>> print b.contents
+red
+ruby
+>>> b.open('http://localhost/apartment/@@grouped.html/++widget++number/@@autocomplete-search?q=1')
+>>> print b.contents
+12A
+12
