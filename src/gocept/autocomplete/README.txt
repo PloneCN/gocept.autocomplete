@@ -6,6 +6,9 @@ The widget is useful if you want to provide the user with a list of suggestions
 for a field, but still want to accept anything else that is entered, too.
 The UI-part of the widget is YUI AutoComplete <http://developer.yahoo.com/yui/autocomplete/>.
 
+``zc.resourcelibrary`` is used to integrate the YUI library in HTML, so this
+package is incompatible with packages using ``hurry.resource``.
+
 To use the widget, `<include package="gocept.autocomplete">` and provide a
 source that implements `gocept.autocomplete.interfaces.ISearchableSource`.
 This means two things, one, your source must provide a search() method so it can

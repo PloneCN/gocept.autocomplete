@@ -5,6 +5,8 @@
   package="gocept.autocomplete"
   >
 
+  <include package="zope.app.zcmlfiles"/>
+
   <include package="gocept.autocomplete" />
   <include package="gocept.autocomplete.tests" />
 

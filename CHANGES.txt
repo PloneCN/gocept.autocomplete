@@ -4,7 +4,11 @@ Changes
 0.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- `configure.zcml` no longer includes ``zope.app.zcmlfiles``, it was moved
+  to `ftesting.zcml`.
+
+- Described the dependency on ``zc.resourcelibrary`` in README which makes
+  this package incompatible with packages using ``hurry.resource``.
 
 
 0.4 (2010-06-17)
