@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.5 (unreleased)
+0.5 (2011-01-11)
 ----------------
 
 - `configure.zcml` no longer includes ``zope.app.zcmlfiles``, it was moved
