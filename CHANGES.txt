@@ -15,7 +15,9 @@ Changes
 ----------------
 
 contributed by Roman Joost <roman@mooball.com>:
+
 - Added grouped forms support.
+
 - Added configuration options for delimiter character, minium query length and
   the type-ahed feature
 
