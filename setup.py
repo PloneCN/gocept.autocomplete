@@ -22,10 +22,9 @@ setup(
     license='ZPL 2.1',
     namespace_packages=['gocept'],
     install_requires=[
+        'js.jqueryui',
         'setuptools',
-        'ore.yui',
         'z3c.form',
-        'zc.resourcelibrary',
         'zope.browser',
         'zope.component',
         'zope.interface',

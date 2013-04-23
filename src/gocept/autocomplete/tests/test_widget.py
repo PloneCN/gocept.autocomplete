@@ -54,8 +54,3 @@ class WidgetTest(zope.app.testing.functional.FunctionalTestCase):
         # since the traverser shouldn't assume that it has been called
         actual = traverse(house, '/@@form/++widget++color', request=request)
         self.assertEqual(form.widgets['color'], actual)
-
-
-
-def test_suite():
-    return unittest.makeSuite(WidgetTest)

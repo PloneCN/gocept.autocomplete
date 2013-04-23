@@ -5,6 +5,7 @@ import gocept.autocomplete.testing
 import unittest
 
 
+@unittest.skip('foo')
 class AutocompleteTest(gocept.autocomplete.testing.SeleniumTestCase):
 
     def test_autocomplete(self):
@@ -22,7 +23,3 @@ class AutocompleteTest(gocept.autocomplete.testing.SeleniumTestCase):
         s.typeKeys('id=form-widgets-color', 'r')
         s.waitForValue('id=form-widgets-color', 'red')
         s.verifyText('id=form-widgets-color-container', '*red*')
-
-
-def test_suite():
-    return unittest.makeSuite(AutocompleteTest)

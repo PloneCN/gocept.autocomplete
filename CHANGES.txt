@@ -4,7 +4,7 @@ Changes
 0.6 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Switch to jQuery UI and Fanstatic instead of YUI and zc.resourcelibrary.
 
 
 0.5 (2011-01-11)

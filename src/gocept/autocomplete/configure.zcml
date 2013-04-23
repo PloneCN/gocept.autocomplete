@@ -45,8 +45,6 @@
     name="widget"
     />
 
-  <include package="ore.yui" file="reslib.zcml"/>
-
   <browser:page
     name="autocomplete-search"
     for=".interfaces.IAutocompleteWidget"
