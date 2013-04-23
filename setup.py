@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='gocept.autocomplete',
-    version='0.6',
+    version='0.7.dev0',
     author='gocept',
     author_email='mail@gocept.com',
     description='AJAX autocomplete widget for z3c.form',
