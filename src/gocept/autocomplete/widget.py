@@ -1,7 +1,6 @@
 import gocept.autocomplete.interfaces
 import js.jqueryui
 import json
-import string
 import z3c.form.browser.text
 import z3c.form.converter
 import z3c.form.interfaces
