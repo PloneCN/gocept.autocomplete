@@ -4,7 +4,9 @@ Changes
 0.7 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Move code to https://bitbucket.org/gocept/gocept.autocomplete.
+
+- Update tests and code to Python 2.7 and ZTK 1.1.6.
 
 
 0.6 (2013-04-23)

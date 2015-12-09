@@ -6,7 +6,6 @@ import z3c.form.browser.text
 import z3c.form.converter
 import z3c.form.interfaces
 import z3c.form.widget
-import zc.resourcelibrary
 import zope.interface
 import zope.pagetemplate.interfaces
 import zope.publisher.browser

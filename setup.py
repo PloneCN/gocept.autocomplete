@@ -21,9 +21,26 @@ setup(
     packages=find_packages('src'),
     package_dir = {'': 'src'},
     include_package_data=True,
+    url='https://bitbucket.org/gocept/gocept.autocomplete',
     zip_safe=False,
     license='ZPL 2.1',
     namespace_packages=['gocept'],
+    classifiers="""\
+Development Status :: 4 - Beta
+Framework :: Zope3
+Intended Audience :: Developers
+License :: OSI Approved
+License :: OSI Approved :: Zope Public License
+Natural Language :: English
+Operating System :: OS Independent
+Programming Language :: Python
+Programming Language :: Python :: 2
+Programming Language :: Python :: 2.7
+Programming Language :: Python :: 2 :: Only
+Programming Language :: Python :: Implementation
+Programming Language :: Python :: Implementation :: CPython
+Topic :: Software Development :: Libraries
+"""[:-1].split('\n'),
     install_requires=[
         'js.jqueryui',
         'setuptools',
