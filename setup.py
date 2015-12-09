@@ -1,9 +1,10 @@
-# Copyright (c) 2009 gocept gmbh & co. kg
-# See also LICENSE.txt
-
 import os.path
 from setuptools import setup, find_packages
 
+
+def read(*path):
+    """Read a file from the path."""
+    return open(os.path.join(*path)).read()
 
 setup(
     name='gocept.autocomplete',
@@ -11,10 +12,12 @@ setup(
     author='gocept',
     author_email='mail@gocept.com',
     description='AJAX autocomplete widget for z3c.form',
-    long_description = (
-        open(os.path.join('src', 'gocept', 'autocomplete', 'README.txt')).read() +
-        '\n\n' +
-        open('CHANGES.txt').read()),
+    long_description='\n\n'.join([
+        read('COPYRIGHT.txt'),
+        read('src', 'gocept', 'autocomplete', 'README.txt'),
+        read('HACKING.txt'),
+        read('CHANGES.txt'),
+    ]),
     packages=find_packages('src'),
     package_dir = {'': 'src'},
     include_package_data=True,

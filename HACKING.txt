@@ -1,0 +1,28 @@
+==============================
+Developing gocept.autocomplete
+==============================
+
+:Author:
+    `gocept <http://gocept.com/>`_ <mail@gocept.com>
+
+:PyPI page:
+    http://pypi.python.org/pypi/gocept.autocomplete/
+
+:Issue tracker:
+    https://bitbucket.org/gocept/gocept.autocomplete/issues/
+
+:Source code:
+    https://bitbucket.org/gocept/gocept.autocomplete/
+
+:Current change log:
+    https://bitbucket.org/gocept/gocept.autocomplete/src/tip/CHANGES.txt
+
+Buildout configuration
+======================
+
+This package ships with a minimum buildout config which allows to run the
+tests::
+
+    $ python bootstrap.py
+    $ bin/buildout
+    $ bin/test
