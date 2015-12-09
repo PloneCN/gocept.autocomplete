@@ -19,7 +19,7 @@ setup(
         read('CHANGES.txt'),
     ]),
     packages=find_packages('src'),
-    package_dir = {'': 'src'},
+    package_dir={'': 'src'},
     include_package_data=True,
     url='https://bitbucket.org/gocept/gocept.autocomplete',
     zip_safe=False,
@@ -52,7 +52,7 @@ Topic :: Software Development :: Libraries
         'zope.publisher',
         'zope.schema',
         'zope.traversing',
-        ],
+    ],
     extras_require=dict(
         test=[
             'lxml',
@@ -65,5 +65,5 @@ Topic :: Software Development :: Libraries
             'zope.app.server',
             'zope.testing',
             'zope.testbrowser>=3.4.3',
-            ]),
+        ]),
 )
