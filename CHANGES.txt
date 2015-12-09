@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.7 (unreleased)
+0.7 (2015-12-09)
 ----------------
 
 - Move code to https://bitbucket.org/gocept/gocept.autocomplete.

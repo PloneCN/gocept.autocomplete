@@ -8,7 +8,7 @@ def read(*path):
 
 setup(
     name='gocept.autocomplete',
-    version='0.7.dev0',
+    version='0.7',
     author='gocept',
     author_email='mail@gocept.com',
     description='AJAX autocomplete widget for z3c.form',
