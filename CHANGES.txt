@@ -10,7 +10,7 @@ Changes
 0.6 (2013-04-23)
 ----------------
 
-- Switch to jQuery UI and Fanstatic instead of YUI and zc.resourcelibrary.
+- Switch to jQuery UI and Fanstatic instead of YUI and ``zc.resourcelibrary`` .
 
 
 0.5 (2011-01-11)
@@ -30,8 +30,8 @@ contributed by Roman Joost <roman@mooball.com>:
 
 - Added grouped forms support.
 
-- Added configuration options for delimiter character, minium query length and
-  the type-ahed feature
+- Added configuration options for delimiter character, minimum query length and
+  the type-ahead feature
 
 
 0.3 (2010-02-26)
